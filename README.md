@@ -1,2 +1,3 @@
-# spat
+# spat (WIP)
+
 Zig argument parsing library
