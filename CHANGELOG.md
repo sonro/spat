@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.0] - 2024-08-08
+
 ### Added
 
-- Build system
+- Build system.
 
-[Unreleased]: https://github.com/sonro/spat/compare/23a8e0d382a89f6dff8a205ee0fd0c2d449df6e7...HEAD
+[Unreleased]: https://github.com/sonro/spat/compare/v0.0.0...HEAD
+[0.0.0]: https://github.com/sonro/zaplum/releases/tag/v0.0.0
