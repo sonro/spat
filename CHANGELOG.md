@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+#### Position argument parsing
+
+- `Positional` comptime function taking `PositionalOptions`, allowing users
+  to specify argument names, types and a custom parser.
+- `CustomParser` comptime function.
+- `ArgType` enum for argument types.
+
 ## [0.0.0] - 2024-08-08
 
 ### Added
