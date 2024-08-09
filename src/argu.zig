@@ -18,9 +18,15 @@ pub const PositionalOptions = struct {
     type: ArgType,
     parser: ?type = null,
     description: ?[]const u8 = null,
+    optional: bool = false,
+    default: ?[]const u8 = null,
 };
 
 pub fn Positional(comptime options: PositionalOptions) type {
+    if (options.optional and options.default != null) {
+        @compileError("optional positional cannot have a default value");
+    }
+
     const T: type = switch (options.type) {
         .string => []const u8,
         .custom => if (options.parser) |parser| parser.Type else {
@@ -28,11 +34,16 @@ pub fn Positional(comptime options: PositionalOptions) type {
         },
         else => @compileError("unsupported type: " ++ @typeName(options.type)),
     };
+
+    const parser = if (options.parser) |parser| parser.parse else ParseFn(T);
+
     return struct {
         pub const name = options.name;
-        pub const Type = T;
-        pub const parse = if (options.parser) |parser| parser.parse else ParseFn(T);
+        pub const Type = if (options.optional) ?T else T;
+        pub const parse = parser;
         pub const description = options.description;
+        pub const optional = options.optional;
+        pub const default = options.default;
     };
 }
 

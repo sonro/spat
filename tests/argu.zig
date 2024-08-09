@@ -29,6 +29,17 @@ test "positional with description" {
     try testing.expectEqualStrings("desc", Arg.description.?);
 }
 
+test "positional optional" {
+    const Arg = Positional(.{ .name = "foo", .type = .string, .optional = true });
+    try testing.expectEqual(true, Arg.optional);
+    try testing.expectEqual(?[]const u8, Arg.Type);
+}
+
+test "positional default value" {
+    const Arg = Positional(.{ .name = "foo", .type = .string, .default = "bar" });
+    try testing.expectEqualStrings("bar", Arg.default.?);
+}
+
 test "positional string parse" {
     const Arg = Positional(.{ .name = "foo", .type = .string });
     try testing.expectEqualStrings("bar", try Arg.parse("bar"));
