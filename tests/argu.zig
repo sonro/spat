@@ -9,8 +9,8 @@ test "simple string positional arg" {
         .name = "foo",
         .type = .string,
     });
-    const actual = try Arg.parse("bar");
-    try testing.expectEqualStrings("bar", actual);
+    try testing.expectEqualStrings("foo", Arg.name);
+    try testing.expectEqualStrings("bar", try Arg.parse("bar"));
 }
 
 test "custom string parser positional arg" {
@@ -19,10 +19,10 @@ test "custom string parser positional arg" {
         .type = .custom,
         .parser = argu.CustomParser([]const u8, parseFooString),
     });
-    const actual = try Arg.parse("bar");
-    try testing.expectEqualStrings("bar", actual);
+    try testing.expectEqualStrings("foo", Arg.name);
+    try testing.expectEqualStrings("bar", try Arg.parse("bar"));
 }
 
-fn parseFooString(arg: []const u8) anyerror![]const u8 {
+fn parseFooString(arg: []const u8) ![]const u8 {
     return arg;
 }
