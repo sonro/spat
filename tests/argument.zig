@@ -4,6 +4,7 @@ const testing = std.testing;
 const spat = @import("spat");
 const Positional = spat.Positional;
 const CustomParser = spat.CustomParser;
+const ArgKind = spat.ArgKind;
 
 test "positional name" {
     const Arg = Positional(.{ .name = "foo", .type = .string });
@@ -44,6 +45,11 @@ test "positional multiple" {
     const Arg = Positional(.{ .name = "foo", .type = .string, .multiple = true });
     try testing.expectEqual(true, Arg.multiple);
     try testing.expectEqual([]const []const u8, Arg.Type);
+}
+
+test "positional kind" {
+    const Arg = Positional(.{ .name = "foo", .type = .string });
+    try testing.expectEqual(ArgKind.positional, Arg.kind);
 }
 
 test "positional string parse" {

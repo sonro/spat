@@ -1,5 +1,11 @@
 const std = @import("std");
 
+pub const Kind = enum {
+    positional,
+    option,
+    subcommand,
+};
+
 pub const ArgType = enum {
     string,
     int,
@@ -49,6 +55,7 @@ pub fn Positional(comptime options: PositionalOptions) type {
     const RealType = if (options.multiple) []const T else if (options.optional) ?T else T;
 
     return struct {
+        pub const kind: Kind = .positional;
         pub const name = options.name;
         pub const Type = RealType;
         pub const parse = parser;
