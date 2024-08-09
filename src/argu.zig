@@ -20,11 +20,20 @@ pub const PositionalOptions = struct {
     description: ?[]const u8 = null,
     optional: bool = false,
     default: ?[]const u8 = null,
+    multiple: bool = false,
 };
 
 pub fn Positional(comptime options: PositionalOptions) type {
     if (options.optional and options.default != null) {
         @compileError("optional positional cannot have a default value");
+    }
+
+    if (options.multiple and options.default != null) {
+        @compileError("multiple positional cannot have a default value");
+    }
+
+    if (options.multiple and options.optional) {
+        @compileError("multiple positional cannot be optional");
     }
 
     const T: type = switch (options.type) {
@@ -37,13 +46,16 @@ pub fn Positional(comptime options: PositionalOptions) type {
 
     const parser = if (options.parser) |parser| parser.parse else ParseFn(T);
 
+    const RealType = if (options.multiple) []const T else if (options.optional) ?T else T;
+
     return struct {
         pub const name = options.name;
-        pub const Type = if (options.optional) ?T else T;
+        pub const Type = RealType;
         pub const parse = parser;
         pub const description = options.description;
         pub const optional = options.optional;
         pub const default = options.default;
+        pub const multiple = options.multiple;
     };
 }
 

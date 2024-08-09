@@ -40,6 +40,12 @@ test "positional default value" {
     try testing.expectEqualStrings("bar", Arg.default.?);
 }
 
+test "positional multiple" {
+    const Arg = Positional(.{ .name = "foo", .type = .string, .multiple = true });
+    try testing.expectEqual(true, Arg.multiple);
+    try testing.expectEqual([]const []const u8, Arg.Type);
+}
+
 test "positional string parse" {
     const Arg = Positional(.{ .name = "foo", .type = .string });
     try testing.expectEqualStrings("bar", try Arg.parse("bar"));

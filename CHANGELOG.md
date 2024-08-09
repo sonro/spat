@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - description
   - optional
   - default value
+  - variadic
 - `CustomParser` comptime function.
 - `ArgType` enum.
 
