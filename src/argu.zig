@@ -17,6 +17,7 @@ pub const PositionalOptions = struct {
     name: []const u8,
     type: ArgType,
     parser: ?type = null,
+    description: ?[]const u8 = null,
 };
 
 pub fn Positional(comptime options: PositionalOptions) type {
@@ -30,6 +31,7 @@ pub fn Positional(comptime options: PositionalOptions) type {
     return struct {
         pub const name = options.name;
         pub const parse = if (options.parser) |parser| parser.parse else ParseFn(T);
+        pub const description = options.description;
     };
 }
 
