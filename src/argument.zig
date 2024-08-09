@@ -6,7 +6,7 @@ pub const Kind = enum {
     subcommand,
 };
 
-pub const ArgType = enum {
+pub const Type = enum {
     string,
     int,
     custom,
@@ -21,7 +21,7 @@ pub fn CustomParser(comptime T: type, comptime Fn: fn ([]const u8) anyerror!T) t
 
 pub const PositionalOptions = struct {
     name: []const u8,
-    type: ArgType,
+    type: Type,
     parser: ?type = null,
     description: ?[]const u8 = null,
     optional: bool = false,
