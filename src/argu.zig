@@ -30,6 +30,7 @@ pub fn Positional(comptime options: PositionalOptions) type {
     };
     return struct {
         pub const name = options.name;
+        pub const Type = T;
         pub const parse = if (options.parser) |parser| parser.parse else ParseFn(T);
         pub const description = options.description;
     };
