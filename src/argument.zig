@@ -20,12 +20,12 @@ pub fn CustomParser(comptime T: type, comptime Fn: fn ([]const u8) anyerror!T) t
 }
 
 pub const PositionalOptions = struct {
-    name: []const u8,
+    name: [:0]const u8,
     type: Type,
     parser: ?type = null,
-    description: ?[]const u8 = null,
+    description: ?[:0]const u8 = null,
     optional: bool = false,
-    default: ?[]const u8 = null,
+    default: ?[:0]const u8 = null,
     multiple: bool = false,
 };
 
