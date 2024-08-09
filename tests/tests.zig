@@ -1,3 +1,3 @@
 comptime {
-    _ = @import("argu.zig");
+    _ = @import("argument.zig");
 }

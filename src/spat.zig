@@ -1,6 +1,6 @@
-const argu = @import("argu.zig");
+const argument = @import("argument.zig");
 
-pub const ArgType = argu.ArgType;
-pub const CustomParser = argu.CustomParser;
-pub const Positional = argu.Positional;
-pub const PositionalOptions = argu.PositionalOptions;
+pub const ArgType = argument.ArgType;
+pub const CustomParser = argument.CustomParser;
+pub const Positional = argument.Positional;
+pub const PositionalOptions = argument.PositionalOptions;
