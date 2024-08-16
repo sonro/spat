@@ -5,15 +5,15 @@ const spat = @import("spat");
 const ArgSpec = spat.ArgSpec;
 const Positional = spat.argument.Positional;
 
-test "no args" {
-    const Spec = ArgSpec(.{});
+test "no args has no fields" {
+    const Spec = ArgSpec(&.{});
     const args = try Spec.parse(&[_][]const u8{});
     const fields = @typeInfo(@TypeOf(args)).Struct.fields;
     try testing.expectEqual(0, fields.len);
 }
 
 test "one string positional arg" {
-    const Spec = ArgSpec(.{
+    const Spec = ArgSpec(&.{
         Positional(.{ .name = "foo", .type = .string }),
     });
     const args = try Spec.parse(&[_][]const u8{"bar"});

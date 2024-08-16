@@ -1,6 +1,6 @@
 const std = @import("std");
 
-pub fn ArgSpec(comptime spec: anytype) type {
+pub fn ArgSpec(comptime spec: []const type) type {
     const args_fields = genArgsFields(spec);
 
     const Args = @Type(.{
@@ -64,7 +64,7 @@ fn Parser(comptime Args: type, comptime params: Spec) type {
     };
 }
 
-fn genArgsFields(comptime spec: anytype) [spec.len]std.builtin.Type.StructField {
+fn genArgsFields(comptime spec: []const type) [spec.len]std.builtin.Type.StructField {
     var fields: [spec.len]std.builtin.Type.StructField = undefined;
     for (spec, 0..) |arg, i| {
         fields[i] = .{
@@ -78,7 +78,7 @@ fn genArgsFields(comptime spec: anytype) [spec.len]std.builtin.Type.StructField 
     return fields;
 }
 
-fn genSpec(comptime spec: anytype) Spec {
+fn genSpec(comptime spec: []const type) Spec {
     var positionals: []const type = &.{};
     for (spec) |arg| {
         if (arg.kind == .positional) {
